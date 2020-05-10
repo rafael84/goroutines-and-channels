@@ -3,8 +3,10 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"time"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/rafael84/goroutines-and-channels/api"
 	"github.com/rafael84/goroutines-and-channels/client"
@@ -17,7 +19,7 @@ func main() {
 	r.Handle("/daily-exports/discover-new-files", dailyExports).Methods("POST")
 
 	server := &http.Server{
-		Handler:      r,
+		Handler:      handlers.LoggingHandler(os.Stdout, r),
 		Addr:         "0.0.0.0:8081",
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 5 * time.Second,

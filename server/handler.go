@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"path"
 	"regexp"
@@ -40,8 +41,7 @@ func DailyExportsHandler(w http.ResponseWriter, r *http.Request) {
 
 	files, err := ioutil.ReadDir(path.Join(FilesDir, exportDate))
 	if err != nil {
-		api.WriteErrorResponse(w, 500, api.ErrCodeGeneric, fmt.Sprintf("could not list files: %s", err.Error()))
-		return
+		log.Printf("could not list files: %v\n", err)
 	}
 
 	response := &api.DailyExportsResponse{

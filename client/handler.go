@@ -17,11 +17,10 @@ func (de *DailyExports) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// get the export date parameter
 	exportDate := api.Yesterday()
-	dateParam := r.URL.Query().Get("export-date")
-	if dateParam != "" {
-		parsedDate, err := time.Parse(api.DateFormat, dateParam)
+	if param := r.URL.Query().Get("export-date"); param != "" {
+		parsedDate, err := time.Parse(api.DateFormat, param)
 		if err != nil {
-			api.WriteErrorResponse(w, 400, api.ErrCodeInvalidParam, fmt.Sprintf(`"%s" is not a valid date param`, dateParam))
+			api.WriteErrorResponse(w, 400, api.ErrCodeInvalidParam, fmt.Sprintf(`"%s" is not a valid date param`, param))
 		}
 		exportDate = parsedDate
 	}
