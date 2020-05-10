@@ -9,7 +9,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/rafael84/learning/goroutines-and-channels/api"
+	"github.com/rafael84/goroutines-and-channels/api"
 )
 
 const (

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/rafael84/learning/goroutines-and-channels/api"
+	"github.com/rafael84/goroutines-and-channels/api"
 )
 
 type DailyExports struct {

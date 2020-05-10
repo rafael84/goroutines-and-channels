@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/rafael84/learning/goroutines-and-channels/server"
+	"github.com/rafael84/goroutines-and-channels/server"
 )
 
 func main() {
