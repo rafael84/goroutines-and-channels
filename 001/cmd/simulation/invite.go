@@ -19,7 +19,7 @@ func invitePeople() {
 		log.Println("inviting", name)
 		systemRequestsChannel <- &Request{
 			Type: CustomerInvited,
-			Data: &Registration{
+			Registration: &Registration{
 				Name: name,
 				Age:  optionalAge,
 			},

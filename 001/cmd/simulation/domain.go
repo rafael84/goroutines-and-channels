@@ -38,17 +38,17 @@ const (
 )
 
 type Request struct {
-	Type RequestType
-	Data *Registration
+	Type         RequestType
+	Registration *Registration
 }
 
 func (r *Request) WithType(t RequestType) *Request {
 	return &Request{
-		Type: t,
-		Data: r.Data,
+		Type:         t,
+		Registration: r.Registration,
 	}
 }
 
 func (r *Request) String() string {
-	return fmt.Sprintf("Request{Type:%v, Data:%v}", r.Type, r.Data)
+	return fmt.Sprintf("Request{Type:%v, Data:%v}", r.Type, r.Registration)
 }

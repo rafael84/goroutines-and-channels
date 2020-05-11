@@ -25,21 +25,21 @@ func processCustomerRequest(customerRequest *Request) {
 }
 
 func customerEnteredAge(customerRequest *Request) {
-	log.Printf("customer %v is entering their age...\n", customerRequest.Data.Name)
+	log.Printf("customer %v is entering their age...\n", customerRequest.Registration.Name)
 	age := random.IntBetween(14, 99)
 	systemRequest := &Request{
 		Type: CustomerResponded,
-		Data: &Registration{
-			Name: customerRequest.Data.Name,
+		Registration: &Registration{
+			Name: customerRequest.Registration.Name,
 			Age:  &age,
 		},
 	}
 	systemRequestsChannel <- systemRequest
-	log.Printf("customer %v entered their age: %v\n", systemRequest.Data.Name, age)
+	log.Printf("customer %v entered their age: %v\n", systemRequest.Registration.Name, age)
 }
 
 func customerAttachedDocs(customerRequest *Request) {
-	log.Printf("customer %v is attaching their docs...\n", customerRequest.Data.Name)
+	log.Printf("customer %v is attaching their docs...\n", customerRequest.Registration.Name)
 	docs := []Document{
 		{
 			Type:   random.Choice([]string{"CPF", "RG", "PASSPORT"}),
@@ -48,12 +48,12 @@ func customerAttachedDocs(customerRequest *Request) {
 	}
 	systemRequest := &Request{
 		Type: CustomerResponded,
-		Data: &Registration{
-			Name: customerRequest.Data.Name,
-			Age:  customerRequest.Data.Age,
+		Registration: &Registration{
+			Name: customerRequest.Registration.Name,
+			Age:  customerRequest.Registration.Age,
 			Docs: docs,
 		},
 	}
 	systemRequestsChannel <- systemRequest
-	log.Printf("customer %v attached their docs: %v\n", systemRequest.Data.Name, docs)
+	log.Printf("customer %v attached their docs: %v\n", systemRequest.Registration.Name, docs)
 }

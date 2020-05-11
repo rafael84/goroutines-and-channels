@@ -17,7 +17,7 @@ func processReviewerRequest(reviewerRequest *Request) {
 
 func docsReviewed(reviewerRequest *Request) {
 	log.Printf("processing reviewer request: %v\n", reviewerRequest)
-	doc := reviewerRequest.Data.Docs[0]
+	doc := reviewerRequest.Registration.Docs[0]
 	if doc.Number%7 == 0 || doc.Number%9 == 0 {
 		invalidDocument(reviewerRequest)
 	} else {

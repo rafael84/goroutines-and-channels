@@ -11,13 +11,13 @@ func processSystemRequests() {
 }
 
 func processSystemRequest(systemRequest *Request) {
-	if systemRequest.Data.Age == nil {
+	if systemRequest.Registration.Age == nil {
 		go requestCustomerToEnterAge(systemRequest)
 
-	} else if *systemRequest.Data.Age < 18 {
+	} else if *systemRequest.Registration.Age < 18 {
 		go rejectCustomerTooYoung(systemRequest)
 
-	} else if systemRequest.Data.Docs == nil || len(systemRequest.Data.Docs) == 0 {
+	} else if systemRequest.Registration.Docs == nil || len(systemRequest.Registration.Docs) == 0 {
 		go requestCustomerDocs(systemRequest)
 
 	} else {
