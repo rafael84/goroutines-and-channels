@@ -4,8 +4,6 @@ import (
 	"log"
 	"sync/atomic"
 	"time"
-
-	"github.com/rafael84/goroutines-and-channels/001/random"
 )
 
 var (
@@ -21,7 +19,7 @@ var (
 )
 
 const (
-	numberOfPeopleToInvite = 1000
+	numberOfPeopleToInvite = 10
 )
 
 func main() {
@@ -45,33 +43,15 @@ func main() {
 	go processRejectedRequests()
 
 	log.Println("waiting the simulation to finish")
-	for approvedRequestsCount+rejectedRequestsCount < numberOfPeopleToInvite {
+	for {
+		total := atomic.LoadUint64(&approvedRequestsCount) + atomic.LoadUint64(&rejectedRequestsCount)
+		if total == numberOfPeopleToInvite {
+			break
+		}
 		time.Sleep(50 * time.Millisecond)
 	}
 
 	log.Printf("simulation finished: approved=%d, rejected=%d\n", approvedRequestsCount, rejectedRequestsCount)
-}
-
-func invitePeople() {
-	for i := 0; i < numberOfPeopleToInvite; i++ {
-		name := random.FullName()
-
-		var optionalAge *int
-		if i%2 == 0 {
-			age := random.IntBetween(14, 80)
-			optionalAge = &age
-		}
-
-		log.Println("inviting", name)
-		systemRequestsChannel <- &Request{
-			Type: CustomerInvited,
-			Data: &Registration{
-				Name: name,
-				Age:  optionalAge,
-			},
-		}
-		log.Println("invited", name)
-	}
 }
 
 func processApprovedRequests() {

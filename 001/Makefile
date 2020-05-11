@@ -7,7 +7,7 @@ all: $(SERVICE)
 $(SERVICE): ./bin
 	@go build -o bin/$(SERVICE) cmd/$(SERVICE)/*.go
 
-run-$(SERVICE): service
+run-$(SERVICE): $(SERVICE)
 	@bin/$(SERVICE)
 
 lint:
